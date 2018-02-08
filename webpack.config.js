@@ -13,8 +13,7 @@ module.exports = {
         extensions: [".js", ".jsx"]
     },
     entry: {
-        app: [ 'react-hot-loader/patch', './src/index.js'],
-        vendor: ['react', 'react-dom']
+        app: [ 'react-hot-loader/patch', './src/index.js']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -46,7 +45,8 @@ module.exports = {
             template: './src/index.html'
         }),
         new webpack.optimize.CommonsChunkPlugin({
-               name: 'vendor'
+               name: 'vendor',
+               minChunks: module => module.context && module.context.includes("node_modules")
              }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
