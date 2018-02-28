@@ -1,12 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const extractSass = new ExtractTextPlugin({
-    filename: "[name].css",
-    disable: true
-});
 
 module.exports = {
     resolve:{
@@ -28,29 +23,22 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: extractSass.extract({
-                    use: [{
-                        loader: "css-loader"
-                    }, {
-                        loader: "sass-loader"
-                    }],
-                    fallback: "style-loader"
-                })
+                use: [
+                    { loader: "style-loader" },
+                    { loader: "css-loader" },
+                    { loader: "sass-loader"}
+                ]
             }
         ]
     },
     plugins: [
-        extractSass,
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-               name: 'vendor',
-               minChunks: module => module.context && module.context.includes("node_modules")
-             }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
     ],
+    mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, "dist"),
