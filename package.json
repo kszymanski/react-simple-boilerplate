@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack --mode production"
   },
   "author": "szymonak",
   "license": "BSD",
