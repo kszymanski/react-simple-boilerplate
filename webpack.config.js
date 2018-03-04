@@ -8,12 +8,17 @@ module.exports = {
         extensions: [".js", ".jsx"]
     },
     entry: {
-        app: [ 'react-hot-loader/patch', './src/index.js']
+        app: './src/index.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
         publicPath: '/'
+    },
+    optimization:{
+        splitChunks: {
+            chunks: "all"
+        }
     },
     module:{
         rules: [
@@ -34,17 +39,13 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html'
-        }),
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        })
     ],
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        compress: true,
         port: 9000,
-        overlay: true,
-        hot: true
+        overlay: true
     }
 }
